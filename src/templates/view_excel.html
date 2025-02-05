@@ -1,0 +1,37 @@
+<!-- view_excel.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <meta charset="UTF-8">
+    <title>Beantragte Weiterbildungen</title>
+</head>
+<body>
+    <h1>Übersicht des Antrags</h1>
+    <table>
+        <tr>
+            <th>Name der Lehrperson</th>
+            <th>Name der Weiterbildung</th>
+            <th>Status</th>
+            <th>Datum Entscheid</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <td>{{ entry['Name'] }}</td>
+            <td>{{ entry['Weiterbildung'] }}</td>
+            <td>{{ entry['Bewilligt?'] }}</td>
+            <td>
+            {% if entry["Datum Entscheid"] %}
+                {{ entry["Datum Entscheid"].strftime("%d.%m.%Y") }}
+            {% else %}
+                {{ "Entscheid ausstehend" }}
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href="/">Zurück zum Formular</a></p>
+</body>
+</html>

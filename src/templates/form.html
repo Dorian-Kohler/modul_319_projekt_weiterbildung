@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antrag Weiterbildung</title>
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <h1>Antrag Weiterbildung</h1>
+    <form hx-post="/submit" hx-target="body">
+        <!-- Dropdown für Name -->
+        <label for="name">Vorname und Name:</label>
+        <select name="name" id="name" required>
+            {% for name in names %}
+            <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <!-- Dropdown Vorgaben des Kantons -->
+        <label for="vorgaben">Vorgaben des Kantons:</label>
+        <select name="vorgaben" id="vorgaben" required>
+            <option value="0">Beitrag GBS: 0 % (Kein Bezug zum Kernauftrag)</option>
+            <option value="50">Beitrag GBS: 50 % (geringer Bezug zum Kernauftrag)</option>
+            <option value="100">Beitrag GBS: 100 % (Direkter Bezug zum Kernauftrag)</option>
+        </select><br><br>
+
+        <!-- Dropdown für Weiterbildung -->
+        <label for="weiterbildung">Weiterbildung:</label>
+        <select name="weiterbildung" class="weiterbildung-dropdown" required
+            hx-trigger="change from:.weiterbildung-dropdown, change from:.fach-checkbox"
+            hx-get="/check-wb-necessity"
+            hx-target="#wb-section">
+            {% for weiterbildung in weiterbildungen %}
+            <option value="{{ weiterbildung }}">{{ weiterbildung }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="abteilung">Abteilung:</label><br>
+        <input type="text" id="abteilung" name="abteilung" required>
+
+        <br><br>
+        <label for="pensum">Aktuelles Pensum:</label><br>
+        <input type="number" id="pensum" name="pensum" required>
+
+        <br><br>
+        <label for="anbieter">Kursanbieter:</label><br>
+        <input type="text" id="anbieter" name="anbieter" required>
+
+        <br><br>
+        <label for="bezeichnung">Kursbezeichnung:</label><br>
+        <input type="text" id="bezeichnung" name="bezeichnung" required>
+
+        <br><br>
+        <label for="inhalt">Kursinhalt:</label><br>
+        <textarea id="inhalt" name="inhalt"></textarea>
+        
+        <br><br>
+        <label for="daten">Kursdaten:</label><br>
+        <textarea id="daten" name="daten"></textarea>
+
+        <br><br>
+        <label for="TagemitUnterricht">Anzahl Tage mit Unterricht:</label><br>
+        <input type="number" id="TagemitUnterricht" name="TagemitUnterricht" required>
+
+        <br><br>
+        <label for="AnzahlbetroffeneLektionen">Anzahl betroffene Lektionen :</label><br>
+        <input type="number" id="AnzahlbetroffeneLektionen" name="AnzahlbetroffeneLektionen" required>
+
+        <br><br>
+        <label for="AnzahlTageohneUnterricht">Anzahl Tage ohne Unterricht</label><br>
+        <input type="number" id="AnzahlTageohneUnterricht" name="AnzahlTageohneUnterricht" required>
+
+        <br><br>
+        <label for="Nutzen">Nutzen für die Tätigkeit als Lehrperson:</label><br>
+        <textarea id="daten" name="Nutzen"></textarea>
+
+        <br><br>
+        <label for="Kurskosten">Kurskosten (bitte detailliert beschreiben):</label><br>
+        <textarea id="daten" name="Kurskosten"></textarea>
+
+        <br><br>
+        <label for="GesamtkosteninCHF">Gesamtkosten in CHF</label><br>
+        <input type="number" id="GesamtkosteninCHF" name="GesamtkosteninCHF" required>
+
+        <br><br>
+        <label for="Spesen">Spesen (Reise, Unterkunft, Verpflegung):</label><br>
+        <textarea id="daten" name="Spesen"></textarea>
+
+        <br><br>
+        <label for="email">E-Mail:</label><br>
+        <input type="email" id="email" name="email" >
+    
+        <!-- Absenden -->
+         <br><br>
+        <button type="submit">Absenden</button>
+    </form>
+        
+    <div>
+        <ul>
+            <li><a href="/admin">Admin-Menu</a></li>
+            <li><a href="/admin/statistik">Statistik</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

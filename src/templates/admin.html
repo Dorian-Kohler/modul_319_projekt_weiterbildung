@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <h1>Admin - Datenverwaltung für Formular</h1>
+    
+    <h2>Neuen Eintrag hinzufügen</h2>
+
+    <h3>Name der Lehrperson</h3>
+    <form action="/admin/add" method="post">
+        <input type="text" name="name" placeholder="Name der Lehrperson" required>
+        <button type="submit">Hinzufügen</button>
+    </form>
+
+    <h3>Bezeichnung der Weiterbildung</h3>
+    <form action="/admin/add" method="post">
+        <input type="text" name="weiterbildung" placeholder="Bezeichnung der Weiterbildung" required>
+        <button type="submit">Hinzufügen</button>
+    </form>
+
+    <h2>Bestehende Einträge</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th colspan="2">Aktionen</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <form action="/admin/update" method="post">
+                <input type="hidden" name="index" value="{{ entry['index'] }}">
+                <td><input type="text" name="name" value="{{ entry.Name }}" required></td>
+                <td>
+                    <button type="submit">Aktualisieren</button>
+                </td>
+            </form>
+            <td>
+                <form action="/admin/delete" method="post">
+                    <input type="hidden" name="index" value="{{ entry['index'] }}">
+                    <button type="submit">Löschen</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table>
+        <tr>
+            <th>Weiterbildung</th>
+            <th colspan="2">Aktionen</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <form action="/admin/update" method="post">
+                <input type="hidden" name="index" value="{{ entry['index'] }}">
+                <td><input type="text" name="weiterbildung" value="{{ entry.Weiterbildung }}" required></td>
+                <td>
+                    <button type="submit">Aktualisieren</button>
+                </td>
+            </form>
+            <td>
+                <form action="/admin/delete" method="post">
+                    <input type="hidden" name="index" value="{{ entry['index'] }}">
+                    <button type="submit">Löschen</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <ul>
+            <li><a href="/admin/statistik">Statistik</a></li>
+            <li><a href="/admin/antraege">Anträge</a></li>
+            <li><a href="/">Formular</a></li>
+        </ul>
+    </div>  
+</body>
+</html>

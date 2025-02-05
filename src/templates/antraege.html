@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <meta charset="UTF-8">
+    <title>Bestätigung - Verwaltung</title>
+</head>
+<body>
+    <h1>Admin - Bewilligung der Anträge der Lehrpersonen</h1>
+
+    <h2>Bereich Fachverantwortlicher</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Weiterbildung</th>
+            <th>Kosten in Franken</th>
+            <th>Bewilligt?</th>
+            <th>Datum Entscheid</th>
+            <th>Aktion</th>
+            <th>Link</th>
+        </tr>
+        {% for entry in data_below %}
+        <tr>
+            <form action="/admin/antraege/update" method="post">
+                <input type="hidden" name="index" value="{{ entry['index'] }}">
+                <td>{{ entry["Name"] }}</td>
+                <td>{{ entry["Weiterbildung"] }}</td>
+                <td>{{ entry["Gesamtkosten in CHF"] }}</td>
+                <td>
+                    <select name="bewilligt">
+                        <option value="in Prüfung" {% if entry["Bewilligt?"] == "in Prüfung" %}selected{% endif %}>In Prüfung</option>
+                        <option value="Bewilligt" {% if entry["Bewilligt?"] == "Bewilligt" %}selected{% endif %}>Bewilligt</option>
+                        <option value="Abgelehnt" {% if entry["Bewilligt?"] == "Abgelehnt" %}selected{% endif %}>Abgelehnt</option>
+                    </select>
+                </td>
+                <td>
+                    {% if entry["Datum Entscheid"] %}
+                        {{ entry["Datum Entscheid"].strftime("%d.%m.%Y") }}
+                    {% else %}
+                        {{ "Entscheid ausstehend" }}
+                    {% endif %}
+                </td>
+                <td><button type="submit">Speichern</button></td>
+                <td><a target="_blank" href='/status/{{ entry["secret"] }}'>Link zum Status der Lehrperson</a></td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Bereich Prorektor</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Weiterbildung</th>
+            <th>Kosten in Franken</th>
+            <th>Bewilligt?</th>
+            <th>Datum Entscheid</th>
+            <th>Aktion</th>
+            <th>Link</th>
+        </tr>
+        {% for entry in data_between %}
+
+        <tr>
+            <form action="/admin/antraege/update" method="post">
+                <input type="hidden" name="index" value="{{ entry['index'] }}">
+                <td>{{ entry["Name"] }}</td>
+                <td>{{ entry["Weiterbildung"] }}</td>
+                <td>{{ entry["Gesamtkosten in CHF"] }}</td>
+                <td>
+                    <select name="bewilligt">
+                        <option value="in Prüfung" {% if entry["Bewilligt?"] == "in Prüfung" %}selected{% endif %}>In Prüfung</option>
+                        <option value="Bewilligt" {% if entry["Bewilligt?"] == "Bewilligt" %}selected{% endif %}>Bewilligt</option>
+                        <option value="Abgelehnt" {% if entry["Bewilligt?"] == "Abgelehnt" %}selected{% endif %}>Abgelehnt</option>
+                    </select>
+                </td>
+                <td>
+                    {% if entry["Datum Entscheid"] %}
+                        {{ entry["Datum Entscheid"].strftime("%d.%m.%Y") }}
+                    {% else %}
+                        {{ "Entscheid ausstehend" }}
+                    {% endif %}
+                </td>
+                <td><button type="submit">Speichern</button></td>
+                <td><a target="_blank" href='/status/{{ entry["secret"] }}'>Link zum Status der Lehrperson</a></td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Bereich Rektor</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Weiterbildung</th>
+            <th>Kosten in Franken</th>
+            <th>Bewilligt?</th>
+            <th>Datum Entscheid</th>
+            <th>Aktion</th>
+            <th>Link</th>
+        </tr>
+        {% for entry in data_rektor %}
+        <tr>
+            <form action="/admin/antraege/update" method="post">
+                <input type="hidden" name="index" value="{{ entry['index'] }}">
+                <td>{{ entry["Name"] }}</td>
+                <td>{{ entry["Weiterbildung"] }}</td>
+                <td>{{ entry["Gesamtkosten in CHF"] }}</td>
+                <td>
+                    <select name="bewilligt">
+                        <option value="in Prüfung" {% if entry["Bewilligt?"] == "in Prüfung" %}selected{% endif %}>In Prüfung</option>
+                        <option value="Bewilligt" {% if entry["Bewilligt?"] == "Bewilligt" %}selected{% endif %}>Bewilligt</option>
+                        <option value="Abgelehnt" {% if entry["Bewilligt?"] == "Abgelehnt" %}selected{% endif %}>Abgelehnt</option>
+                    </select>
+                </td>
+                <td>
+                    {% if entry["Datum Entscheid"] %}
+                        {{ entry["Datum Entscheid"].strftime("%d.%m.%Y") }}
+                    {% else %}
+                        {{ "Entscheid ausstehend" }}
+                    {% endif %}
+                </td>
+                <td><button type="submit">Speichern</button></td>
+                <td><a target="_blank" href='/status/{{ entry["secret"] }}'>Link zum Status der Lehrperson</a></td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <li><a href="/admin/statistik">Statistik</a></li>
+</body>
+</html>
