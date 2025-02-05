@@ -28,3 +28,17 @@ source venv/bin/activate && pip install -r requirements.txt
 ```bash
 uvicorn app:app --reload 
 ```
+
+## Links und deren Funktion
+### http://127.0.0.1:8000/ 
+Diese URL öffnet das Antragsformular, das von der betreffenden Person ausgefüllt werden kann. Das Formular ermöglicht es, alle notwendigen Informationen für die Antragstellung zu hinterlegen.
+
+### http://127.0.0.1:8000/admin
+Diese Seite öffnet das Admin-Menü, über das Administratoren die Möglichkeit haben, neue Lehrer und Weiterbildungsangebote hinzuzufügen oder bestehende Einträge zu bearbeiten. Am unteren Ende der Seite befinden sich Links, die zu anderen relevanten Seiten weiterleiten, um eine effiziente Navigation zu gewährleisten.
+
+### http://127.0.0.1:8000/admin/antraege
+Diese Seite zeigt alle eingegangenen Anträge, die nach verschiedenen Bereichen strukturiert sind. Hier können die Anträge eingesehen, bearbeitet und verwaltet werden, um die notwendigen Anpassungen vorzunehmen oder weitere Schritte einzuleiten.
+
+### http://127.0.0.1:8000/admin/statistik
+Diese Seite bietet eine umfassende Übersicht über sämtliche Daten und Informationen. Die Administratoren haben hier die Möglichkeit, die Daten nach verschiedenen Kriterien zu filtern, um gezielte Auswertungen und Analysen durchzuführen.
+
